@@ -1,0 +1,3 @@
+[submodule "chiara"]
+	path = chiara
+	url = https://github.com/cellog/ChiaraPodioPHP.git
