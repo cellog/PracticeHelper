@@ -8,19 +8,19 @@ class PracticeHelper
     {
         $user = explode('/', $_SERVER['DOCUMENT_ROOT']);
         $user = $user[2];
-        $mapfile = __DIR__ . '/map.json';
-        if (file_exists('/home/' . $user . '/somchamber.json')) {
-            $clientfile = '/home/' . $user . '/somchamber.json';
-            $mapfile = '/home/' . $user . '/map.json';
+        $mapfile = __DIR__ . '/pmap.json';
+        if (file_exists('/home/' . $user . '/practice.json')) {
+            $clientfile = '/home/' . $user . '/practice.json';
+            $mapfile = '/home/' . $user . '/pmap.json';
         } else {
             // local debugging
-            $clientfile = __DIR__ . '/somchamber.json';
+            $clientfile = __DIR__ . '/practice.json';
         }
-        if (file_exists('/home/' . $user . '/podiotokens.json')) {
-            $tokenfile = '/home/' . $user . '/podiotokens.json';
+        if (file_exists('/home/' . $user . '/practicetokens.json')) {
+            $tokenfile = '/home/' . $user . '/practicetokens.json';
         } else {
             // local debugging
-            $tokenfile = __DIR__ . '/podiotokens.json';
+            $tokenfile = __DIR__ . '/practicetokens.json';
         }
         $this->tokenmanager = new Chiara\AuthManager\File($tokenfile, $clientfile, $mapfile, true);
         Chiara\AuthManager::setAuthMode(Chiara\AuthManager::USER);
