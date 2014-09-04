@@ -32,6 +32,58 @@ class PracticeHelper
                 $this->login();
             }
         }
+        if (isset($_SESSION) && !isset($_SESSION['practicing'])) {
+            $_SESSION['practicing'] = array();
+        }
+    }
+
+    protected function getPracticeThing($thing, $checkform = true)
+    {
+        if ($checkform && isset($_GET) && isset($_GET[$thing])) {
+            $_SESSION['practicing'][$thing] = filter_var($_GET[$thing], FILTER_SANITIZE_NUMBER_INT);
+        }
+        if (isset($_SESSION) && isset($_SESSION['practicing']) && isset($_SESSION['practicing'][$thing])) {
+            return $_SESSION['practicing'][$thing];
+        }
+        return null;
+    }
+
+    function myPracticeWorkspace()
+    {
+        $id = $this->getPracticeThing('workspace');
+        return $id;
+    }
+
+    function myPracticeApp()
+    {
+        $id = $this->getPracticeThing('app', false);
+        if ($id) {
+            return new Chiara\PodioApp($id);
+        }
+    }
+
+    function myRepApp()
+    {
+        $id = $this->getPracticeThing('rep', false);
+        if ($id) {
+            return new Chiara\PodioApp($id, false);
+        }
+    }
+
+    function myEtudesApp()
+    {
+        $id = $this->getPracticeThing('etudes', false);
+        if ($id) {
+            return new Chiara\PodioApp($id, false);
+        }
+    }
+
+    function myTechniqueApp()
+    {
+        $id = $this->getPracticeThing('technique', false);
+        if ($id) {
+            return new Chiara\PodioApp($id, false);
+        }
     }
 
     function login()
@@ -61,29 +113,73 @@ class PracticeHelper
         return '<a href="' . $thing->link($this) . '">' . $thing->name() . '</a>';
     }
 
-    function getOrg()
-    {
-        return $this->org_id;
-    }
-
     function route()
     {
-        $route = new SOM\Routes\Home;
-        if (isset($_SERVER['PATH_INFO'])) {
-            $map = array('workspace' => 'SOM\\Routes\\Workspace',
-                         'clone' => 'SOM\\Routes\\Workspace\\Cloner',
-                         'makehook' => 'SOM\\Routes\\Workspace\\Hooks',
-                         'importstudents' => 'SOM\\Routes\\Workspace\\Studentimport',
-                         'changes' => 'SOM\\Routes\\Workspace\Changes',
-                         //'updatereferences' => 'SOM\\Routes\\Workspace\\Updatereferences',
-                         //'test' => 'SOM\\Routes\\Test',
-                         );
-            $info = explode('/', $_SERVER['PATH_INFO']);
-            if (isset($map[$info[1]])) {
-                $class = $map[$info[1]];
-                $route = new $class(array_slice($info, 2));
+        $workspace = $this->getPracticeWorkspace();
+        if (!$workspace) {
+            $this->me = PodioContact::me();
+            foreach ($this->me->getMyOrganizations() as $org)
+            {
+                if ($org->id == 136384) {
+                    return new PracticeHelper\Page\ChooseWorkspace($org);
+                }
             }
         }
-        $route->activate($this);
+        $app = $this->getPracticeApp();
+        $rep = $this->getRepApp();
+        $technique = $this->getTechniqueApp();
+        $etudes = $this->getEtudesApp();
+        if (!$app) {
+            $workspace = new Chiara\PodioWorkspace($workspace);
+            foreach ($workspace->apps as $potential) {
+                if ($potential->title == 'Practicing') {
+                    $app = new Chiara\PodioApp($potential);
+                }
+                if ($potential->title == 'Rep') {
+                    $rep = new Chiara\PodioApp($potential);
+                }
+                if ($potential->title == 'Etudes') {
+                    $etudes = new Chiara\PodioApp($potential);
+                }
+                if ($potential->title == 'Technique') {
+                    $technique = new Chiara\PodioApp($potential);
+                }
+            }
+        }
+        if (!$app) {
+            $this->me = PodioContact::me();
+            foreach ($this->me->getMyOrganizations() as $org)
+            {
+                if ($org->id == 136384) {
+                    return new PracticeHelper\Page\ChooseWorkspace($org);
+                }
+            }
+        }
+        // ok, we are ready to go.
+        if (isset($_GET['stop'])) {
+            // insert new practice journal entry
+        }
+        if (isset($_GET['rep']) || isset($_GET['etudes']) || isset($_GET['technique'])) {
+            return new PracticeHelper\Templates\BigButton('stop', 'Finish practicing', 'btn-danger');
+            $_SESSION['practicing']['starttime'] = time();
+            if (isset($_GET['rep'])) {
+                $_SESSION['practicing']['rep'] = array('rep', filter_var($_GET['rep'], FILTER_SANITIZE_NUMBER_INT));
+            }
+            if (isset($_GET['technique'])) {
+                $_SESSION['practicing']['rep'] = array('technique', filter_var($_GET['technique'], FILTER_SANITIZE_NUMBER_INT));
+            }
+            if (isset($_GET['etudes'])) {
+                $_SESSION['practicing']['rep'] = array('etudes', filter_var($_GET['etudes'], FILTER_SANITIZE_NUMBER_INT));
+            }
+        }
+        if (isset($_GET['go'])) {
+            return new PracticeHelper\Page\ChooseRep($rep, $etudes, $technique);
+        }
+        return new PracticeHelper\Templates\BigButton();
+    }
+
+    function __toString()
+    {
+        return $this->route();
     }
 }
