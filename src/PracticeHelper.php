@@ -121,7 +121,6 @@ class PracticeHelper
             echo '<pre>';
             foreach ($this->me->myorganizations as $org)
             {
-                var_dump($org);
                 if ($org->id == 136384) {
                     return new PracticeHelper\Page\ChooseWorkspace($org);
                 }
