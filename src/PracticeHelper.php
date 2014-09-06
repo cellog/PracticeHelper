@@ -117,10 +117,11 @@ class PracticeHelper
     {
         $workspace = $this->myPracticeWorkspace();
         if (!$workspace) {
-            echo 'here';
             $this->me = Chiara\PodioContact::me();
+            echo '<pre>';
             foreach ($this->me->myorganizations as $org)
             {
+                var_dump($org);
                 if ($org->id == 136384) {
                     return new PracticeHelper\Page\ChooseWorkspace($org);
                 }
