@@ -115,7 +115,7 @@ class PracticeHelper
 
     function route()
     {
-        $workspace = $this->getPracticeWorkspace();
+        $workspace = $this->myPracticeWorkspace();
         if (!$workspace) {
             $this->me = PodioContact::me();
             foreach ($this->me->getMyOrganizations() as $org)
@@ -125,10 +125,10 @@ class PracticeHelper
                 }
             }
         }
-        $app = $this->getPracticeApp();
-        $rep = $this->getRepApp();
-        $technique = $this->getTechniqueApp();
-        $etudes = $this->getEtudesApp();
+        $app = $this->myPracticeApp();
+        $rep = $this->myRepApp();
+        $technique = $this->myTechniqueApp();
+        $etudes = $this->myEtudesApp();
         if (!$app) {
             $workspace = new Chiara\PodioWorkspace($workspace);
             foreach ($workspace->apps as $potential) {
