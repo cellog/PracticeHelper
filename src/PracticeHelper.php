@@ -117,6 +117,7 @@ class PracticeHelper
     {
         $workspace = $this->myPracticeWorkspace();
         if (!$workspace) {
+            echo 'here';
             $this->me = Chiara\PodioContact::me();
             foreach ($this->me->myorganizations as $org)
             {
@@ -124,8 +125,6 @@ class PracticeHelper
                     return new PracticeHelper\Page\ChooseWorkspace($org);
                 }
             }
-        } else {
-            var_dump($workspace);
         }
         $app = $this->myPracticeApp();
         $rep = $this->myRepApp();
