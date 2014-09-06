@@ -6,6 +6,7 @@ class ChooseWorkspace
     protected $main;
     function __construct(P $main)
     {
+        var_dump($main);
         $this->main = $main;
     }
 
