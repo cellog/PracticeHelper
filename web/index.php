@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 include '../src/autoload.php';
 $p = new PracticeHelper;
 ?>
