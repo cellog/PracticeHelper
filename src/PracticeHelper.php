@@ -180,6 +180,10 @@ class PracticeHelper
 
     function __toString()
     {
-        return $this->route();
+        try {
+            return $this->route();
+        } catch (\Exception $e) {
+            echo $e;
+        }
     }
 }
