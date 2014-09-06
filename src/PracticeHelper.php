@@ -90,14 +90,14 @@ class PracticeHelper
     {
         $clientinfo = $this->tokenmanager->getAPIClient();
         header('Location: https://podio.com/oauth/authorize?client_id=' . $clientinfo['client'] . '&redirect_uri=' .
-               urlencode('http://www.chiaraquartet.net/PracticeHelper/'));
+               urlencode('http://www.chiaraquartet.net/PracticeHelper/web/index.php'));
     }
 
     function authenticate()
     {
         if (isset($_GET['code'])) {
             Podio::authenticate('authorization_code', array('code' => $_GET['code'],
-                                                            'redirect_uri' => 'http://www.chiaraquartet.net/PracticeHelper/'));
+                                                            'redirect_uri' => 'http://www.chiaraquartet.net/PracticeHelper/web/index.php'));
             return true;
         }
         return false;
