@@ -90,7 +90,7 @@ function Podio_autoload($class)
             return false;
         }
     }
-    include dirname(__DIR__) . '/podio/' . $GLOBALS['___PODIO_MAP'][$class];
+    include dirname(__DIR__) . '/chiara/oldpodio/' . $GLOBALS['___PODIO_MAP'][$class];
 }
 spl_autoload_register('myAutoload');
 spl_autoload_register('ChiaraAutoload');
