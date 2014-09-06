@@ -121,10 +121,11 @@ class PracticeHelper
             foreach ($this->me->myorganizations as $org)
             {
                 if ($org->id == 136384) {
-                    var_dump('<pre>',$org);
                     return new PracticeHelper\Page\ChooseWorkspace($org);
                 }
             }
+        } else {
+            var_dump($workspace);
         }
         $app = $this->myPracticeApp();
         $rep = $this->myRepApp();
