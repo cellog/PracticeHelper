@@ -116,6 +116,7 @@ class PracticeHelper
     function route()
     {
         $workspace = $this->myPracticeWorkspace();
+        // todo: set up the practice/rep/technique/etudes app inside myPracticeApp on first retrieval
         if (!$workspace) {
             $this->me = Chiara\PodioContact::me();
             foreach ($this->me->myorganizations as $org)
