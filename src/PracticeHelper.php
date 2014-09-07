@@ -210,7 +210,7 @@ class PracticeHelper
                     break;
             }
             $entry = $this->myPracticeItem();
-            $entry->fields['app-reference'] = $rep[1];
+            $entry->fields['app-reference'] = $piece;
             $entry->fields['how-did-you-practice-it'] = 194369769; // placeholder
             $entry->fields['date'] = date('Y-m-d');
             $entry->fields['duration'] = $total;
