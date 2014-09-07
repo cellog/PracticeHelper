@@ -57,12 +57,12 @@ class PracticeHelper
 
     protected function determineAppIds($id)
     {
-        var_dump($id, $this->getPracticeThing('app', false));
         if (!$id || $this->getPracticeThing('app', false)) {
             return;
         }
         $workspace = new Chiara\PodioWorkspace($id);
         foreach ($workspace->apps as $potential) {
+        var_dump($potential->title);
             if ($potential->title == 'Practicing') {
                 $_SESSION['practicing']['app'] = $potential->id;
             }
