@@ -196,6 +196,7 @@ class PracticeHelper
         // ok, we are ready to go.
         if (isset($_GET['stop'])) {
             // insert new practice journal entry
+            var_dump($_SESSION['practicing']);
             $total = time() - $_SESSION['practicing']['starttime'];
             $rep = $_SESSION['practicing']['practiced'];
             switch ($rep[0]) {
