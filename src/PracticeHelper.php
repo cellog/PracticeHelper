@@ -58,6 +58,7 @@ class PracticeHelper
     protected function determineAppIds($id)
     {
         if (!$id || $this->getPracticeThing('app', false)) {
+            echo 'here';
             return;
         }
         $workspace = new Chiara\PodioWorkspace($id);
