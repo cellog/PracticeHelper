@@ -11,7 +11,7 @@ class ChooseWorkspace
 
     function __toString()
     {
-        $ret = '<div class="button-group-vertical">';
+        $ret = '<div class="btn-group-vertical">';
         foreach ($this->main->workspaces->matching('Practicing:') as $space) {
             $ret .= new Button($space->name, $space->id, 'workspace');
         }
