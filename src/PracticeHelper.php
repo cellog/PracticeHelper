@@ -182,7 +182,7 @@ class PracticeHelper
     function __toString()
     {
         try {
-            return $this->route();
+            return (string) $this->route();
         } catch (\Exception $e) {
             echo $e;
         }
