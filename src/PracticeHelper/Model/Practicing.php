@@ -1,6 +1,6 @@
 <?php
 namespace PracticeHelper\Model;
-class Practicing extends \PracticeHelper/Model/Base
+class Practicing extends \PracticeHelper\Model\Base
 {
     protected $MYAPPID=6624583;
     function __construct($info = null, $retrieve = true)

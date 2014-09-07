@@ -17,6 +17,6 @@ Chiara\AuthManager::attemptPasswordLogin();
 // in 3 lines of code (the 4th is just for informational purposes)
 $myorganizations = Chiara\PodioOrganization::mine();
 foreach ($myorganizations['unledu']->workspaces->matching('^Practicing: Greg Beaver') as $space) {
-    $ret = $space->generateClasses(__DIR__ . '/PracticeHelper/Model', 'PracticeHelper\Model', false, null, 'PracticeHelper/Model/Base');
+    $ret = $space->generateClasses(__DIR__ . '/PracticeHelper/Model', 'PracticeHelper\Model', false, null, 'PracticeHelper\Model\Base');
     echo $space, " processed<br>\n";
 }
