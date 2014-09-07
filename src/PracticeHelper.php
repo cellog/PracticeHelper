@@ -146,15 +146,6 @@ class PracticeHelper
                 }
             }
         }
-        if (!$app) {
-            $this->me = Chiara\PodioContact::me();
-            foreach ($this->me->getMyOrganizations() as $org)
-            {
-                if ($org->id == 136384) {
-                    return new PracticeHelper\Page\ChooseWorkspace($org);
-                }
-            }
-        }
         // ok, we are ready to go.
         if (isset($_GET['stop'])) {
             // insert new practice journal entry
