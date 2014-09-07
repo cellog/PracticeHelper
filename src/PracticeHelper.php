@@ -62,7 +62,7 @@ class PracticeHelper
         }
         $workspace = new Chiara\PodioWorkspace($id);
         foreach ($workspace->apps as $potential) {
-        var_dump('<pre>',$potential);exit;
+        var_dump('<pre>',$potential->config['name']);exit;
             if ($potential->title == 'Practicing') {
                 $_SESSION['practicing']['app'] = $potential->id;
             }
