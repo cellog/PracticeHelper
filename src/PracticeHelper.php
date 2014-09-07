@@ -149,6 +149,8 @@ class PracticeHelper
         // ok, we are ready to go.
         if (isset($_GET['stop'])) {
             // insert new practice journal entry
+            $total = time() - $_SESSION['practicing']['starttime'];
+            return "<h1>Total time: $total</h1>";
         }
         if (isset($_GET['rep']) || isset($_GET['etudes']) || isset($_GET['technique'])) {
             return new PracticeHelper\Templates\BigButton('stop', 'Finish practicing', 'btn-danger');

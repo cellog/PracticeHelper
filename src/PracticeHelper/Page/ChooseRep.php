@@ -15,14 +15,18 @@ class ChooseRep
 
     function __toString()
     {
+        $ret = '<div class="wide"><h1>Choose what you will practice</h1></div>';
+        $ret .= '<h1>Rep/Etudes/Technique</h1><div class="btn-group-vertical">';
         foreach ($rep->filter as $piece) {
-            $ret .= new Button($piece->title, $space->id, 'rep');
+            $ret .= new Button($piece->title, $piece->id, 'rep');
         }
         foreach ($etudes->filter as $piece) {
-            $ret .= new Button($piece->title, $space->id, 'etudes', 'btn-warning');
+            $ret .= new Button($piece->title, $piece->id, 'etudes', 'btn-warning');
         }
         foreach ($technique->filter as $piece) {
-            $ret .= new Button($piece->title, $space->id, 'technique', 'btn-info');
+            $ret .= new Button($piece->title, $piece->id, 'technique', 'btn-info');
         }
+        $ret .= '</div>';
+        return $ret;
     }
 }
