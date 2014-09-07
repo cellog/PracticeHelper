@@ -183,7 +183,7 @@ class PracticeHelper
         try {
             return (string) $this->route();
         } catch (\Exception $e) {
-            echo $e;
+            echo '<pre>',$e;
         }
     }
 }
