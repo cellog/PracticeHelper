@@ -211,7 +211,7 @@ class PracticeHelper
             }
             $entry = $this->myPracticeItem();
             $entry->fields['app-reference'] = $piece;
-            $entry->fields['how-did-you-practice-it'] = array('item_id' => 194369769); // placeholder
+            $entry->fields['how-did-you-practice-it'] = 194369769; // placeholder
             $entry->fields['date'] = date('Y-m-d');
             $entry->fields['duration'] = $total;
             $entry->save();
