@@ -215,7 +215,7 @@ class PracticeHelper
             $entry->fields['date'] = date('Y-m-d');
             $entry->fields['duration'] = $total;
             $entry->save();
-            return new PracticeHelper\Templates\BigButton('go', "<h1>Total time: " . ($total/60) . " minutes</h1>" .
+            return new PracticeHelper\Templates\BigButton('go', "<h1>Total time: " . round($total/60) . " minutes</h1>" .
                    "<h1>" . ucfirst($rep[0]) . ': ' . $piece->title . '</h1><h1>Click to Practice again!</h1>');
         }
         if (isset($_GET['rep']) || isset($_GET['etudes']) || isset($_GET['technique'])) {
