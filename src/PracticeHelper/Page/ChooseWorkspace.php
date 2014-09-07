@@ -1,6 +1,6 @@
 <?php
 namespace PracticeHelper\Page;
-use Chiara\PodioOrganization as P;
+use Chiara\PodioOrganization as P, PracticeHelper\Templates\Button;
 class ChooseWorkspace
 {
     protected $main;
