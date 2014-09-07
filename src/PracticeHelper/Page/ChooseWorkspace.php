@@ -11,7 +11,8 @@ class ChooseWorkspace
 
     function __toString()
     {
-        foreach ($this->main->workspaces->matching('Lessons') as $space) {
+        $ret = '';
+        foreach ($this->main->workspaces->matching('Practicing:') as $space) {
             $ret .= new Button($space->title, $space->id, 'workspace');
         }
         return $ret;
