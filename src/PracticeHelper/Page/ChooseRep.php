@@ -21,6 +21,9 @@ class ChooseRep
             $ret .= new Button($piece->title, $piece->id, 'rep');
         }
         foreach ($this->etudes->filter as $piece) {
+            if (!$piece) {
+                var_dump('<pre>',$piece);exit;
+            }
             $ret .= new Button($piece->title, $piece->id, 'etudes', 'btn-warning');
         }
         foreach ($this->technique->filter as $piece) {
