@@ -196,7 +196,6 @@ class PracticeHelper
         // ok, we are ready to go.
         if (isset($_GET['stop'])) {
             // insert new practice journal entry
-            var_dump($_SESSION['practicing']);
             $total = time() - $_SESSION['practicing']['starttime'];
             $rep = $_SESSION['practicing']['practiced'];
             switch ($rep[0]) {
@@ -214,7 +213,6 @@ class PracticeHelper
                    "<h1>Piece: " . $rep[0] . ' ' . $piece->title . '</h1>';
         }
         if (isset($_GET['rep']) || isset($_GET['etudes']) || isset($_GET['technique'])) {
-            return new PracticeHelper\Templates\BigButton('stop', 'Finish practicing', 'btn-danger');
             $_SESSION['practicing']['starttime'] = time();
             if (isset($_GET['rep'])) {
                 $_SESSION['practicing']['practiced'] = array('rep', filter_var($_GET['rep'], FILTER_SANITIZE_NUMBER_INT));
@@ -225,6 +223,7 @@ class PracticeHelper
             if (isset($_GET['etudes'])) {
                 $_SESSION['practicing']['practiced'] = array('etudes', filter_var($_GET['etudes'], FILTER_SANITIZE_NUMBER_INT));
             }
+            return new PracticeHelper\Templates\BigButton('stop', 'Finish practicing', 'btn-danger');
         }
         if (isset($_GET['go'])) {
             return new PracticeHelper\Page\ChooseRep($rep, $etudes, $technique);
