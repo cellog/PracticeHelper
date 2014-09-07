@@ -209,8 +209,14 @@ class PracticeHelper
                     $piece = $this->myEtudeItem($rep[1]);
                     break;
             }
-            return "<h1>Total time: $total</h1>" .
-                   "<h1>Piece: " . $rep[0] . ' ' . $piece->title . '</h1>';
+            $entry = $this->myPracticeItem();
+            $entry->fields['app-reference'] = $rep[1];
+            $entry->fields['how-did-you-practice-it'] = 194369769; // placeholder
+            $entry->fields['date'] = date('Y-m-d');
+            $entry->fields['duration'] = $total;
+            $entry->save();
+            return new PracticeHelper\Templates\BigButton('go', "<h1>Total time: " . ($total/60) . " minutes</h1>" .
+                   "<h1>" . ucfirst($rep[0]) . ': ' . $piece->title . '</h1><h1>Click to Practice again!</h1>');
         }
         if (isset($_GET['rep']) || isset($_GET['etudes']) || isset($_GET['technique'])) {
             $_SESSION['practicing']['starttime'] = time();
