@@ -13,6 +13,7 @@ class ChooseWorkspace
     {
         $ret = '';
         foreach ($this->main->workspaces->matching('Practicing:') as $space) {
+            var_dump($space);
             $ret .= new Button($space->name, $space->id, 'workspace');
         }
         return $ret;
