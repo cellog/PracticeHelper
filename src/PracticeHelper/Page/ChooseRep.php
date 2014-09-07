@@ -1,6 +1,6 @@
 <?php
 namespace PracticeHelper\Page;
-use Chiara\PodioApp as A;
+use Chiara\PodioApp as A, PracticeHelper\Template\Button;
 class ChooseRep
 {
     protected $rep;
