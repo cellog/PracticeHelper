@@ -18,15 +18,21 @@ class ChooseRep
         $ret = '<div class="wide"><h1>Choose what you will practice</h1></div>';
         $ret .= '<h1>Rep/Etudes/Technique</h1><div class="btn-group-vertical">';
         foreach ($this->rep->filter as $piece) {
+            if (!$piece) {
+                continue;
+            }
             $ret .= new Button($piece->title, $piece->id, 'rep');
         }
         foreach ($this->etudes->filter as $piece) {
             if (!$piece) {
-                var_dump('<pre>',$piece);exit;
+                continue;
             }
             $ret .= new Button($piece->title, $piece->id, 'etudes', 'btn-warning');
         }
         foreach ($this->technique->filter as $piece) {
+            if (!$piece) {
+                continue;
+            }
             $ret .= new Button($piece->title, $piece->id, 'technique', 'btn-info');
         }
         $ret .= '</div>';
