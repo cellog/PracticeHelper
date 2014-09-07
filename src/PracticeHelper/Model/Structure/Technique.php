@@ -3,7 +3,7 @@ namespace PracticeHelper\Model\Structure;
 class Technique extends \Chiara\PodioApplicationStructure
 {
     protected $APPID = "6624582";
-    protected $APPNAME = "";
+    protected $APPNAME = "Technique";
     protected $structure = array (
       'title' => 
       array (
