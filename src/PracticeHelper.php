@@ -51,7 +51,30 @@ class PracticeHelper
     function myPracticeWorkspace()
     {
         $id = $this->getPracticeThing('workspace');
+        $this->determineAppIds($id);
         return $id;
+    }
+
+    protected function determineAppIds($id)
+    {
+        if (!$id || $this->getPracticeThing('app', false)) {
+            return;
+        }
+        $workspace = new Chiara\PodioWorkspace($id);
+        foreach ($workspace->apps as $potential) {
+            if ($potential->title == 'Practicing') {
+                $_SESSION['practicing']['app'] = $potential->id;
+            }
+            if ($potential->title == 'Rep') {
+                $_SESSION['practicing']['rep'] = $potential->id;
+            }
+            if ($potential->title == 'Etudes') {
+                $_SESSION['practicing']['etudes'] = $potential->id;
+            }
+            if ($potential->title == 'Technique') {
+                $_SESSION['practicing']['technique'] = $potential->id;
+            }
+        }
     }
 
     function myPracticeApp()
@@ -83,6 +106,46 @@ class PracticeHelper
         $id = $this->getPracticeThing('technique', false);
         if ($id) {
             return new Chiara\PodioApp($id, false);
+        }
+    }
+
+    function myPracticeItem($pid = null)
+    {
+        $id = $this->getPracticeThing('app', false);
+        if ($id) {
+            $ret = new PracticeHelper\Model\Practicing($pid);
+            $ret->switchModel($id);
+            return $ret;
+        }
+    }
+
+    function myRepItem($rid = null)
+    {
+        $id = $this->getPracticeThing('rep', false);
+        if ($id) {
+            $ret = new PracticeHelper\Model\Rep($rid);
+            $ret->switchModel($id);
+            return $ret;
+        }
+    }
+
+    function myEtudesItem($eid = null)
+    {
+        $id = $this->getPracticeThing('etudes', false);
+        if ($id) {
+            $ret = new PracticeHelper\Model\Etudes($eid);
+            $ret->switchModel($id);
+            return $ret;
+        }
+    }
+
+    function myTechniqueItem($tid = null)
+    {
+        $id = $this->getPracticeThing('technique', false);
+        if ($id) {
+            $ret = new PracticeHelper\Model\Technique($tid);
+            $ret->switchModel($id);
+            return $ret;
         }
     }
 
@@ -130,40 +193,36 @@ class PracticeHelper
         $rep = $this->myRepApp();
         $technique = $this->myTechniqueApp();
         $etudes = $this->myEtudesApp();
-        if (!$app) {
-            $workspace = new Chiara\PodioWorkspace($workspace);
-            foreach ($workspace->apps as $potential) {
-                if ($potential->title == 'Practicing') {
-                    $app = new Chiara\PodioApp($potential);
-                }
-                if ($potential->title == 'Rep') {
-                    $rep = new Chiara\PodioApp($potential);
-                }
-                if ($potential->title == 'Etudes') {
-                    $etudes = new Chiara\PodioApp($potential);
-                }
-                if ($potential->title == 'Technique') {
-                    $technique = new Chiara\PodioApp($potential);
-                }
-            }
-        }
         // ok, we are ready to go.
         if (isset($_GET['stop'])) {
             // insert new practice journal entry
             $total = time() - $_SESSION['practicing']['starttime'];
-            return "<h1>Total time: $total</h1>";
+            $rep = $_SESSION['practicing']['practiced'];
+            switch ($rep[0]) {
+                case 'rep' :
+                    $piece = $this->myRepItem($rep[1]);
+                    break;
+                case 'technique' :
+                    $piece = $this->myTechniqueItem($rep[1]);
+                    break;
+                case 'etudes' :
+                    $piece = $this->myEtudeItem($rep[1]);
+                    break;
+            }
+            return "<h1>Total time: $total</h1>" .
+                   "<h1>Piece: " . $rep[0] . ' ' . $piece->title . '</h1>';
         }
         if (isset($_GET['rep']) || isset($_GET['etudes']) || isset($_GET['technique'])) {
             return new PracticeHelper\Templates\BigButton('stop', 'Finish practicing', 'btn-danger');
             $_SESSION['practicing']['starttime'] = time();
             if (isset($_GET['rep'])) {
-                $_SESSION['practicing']['rep'] = array('rep', filter_var($_GET['rep'], FILTER_SANITIZE_NUMBER_INT));
+                $_SESSION['practicing']['practiced'] = array('rep', filter_var($_GET['rep'], FILTER_SANITIZE_NUMBER_INT));
             }
             if (isset($_GET['technique'])) {
-                $_SESSION['practicing']['rep'] = array('technique', filter_var($_GET['technique'], FILTER_SANITIZE_NUMBER_INT));
+                $_SESSION['practicing']['practiced'] = array('technique', filter_var($_GET['technique'], FILTER_SANITIZE_NUMBER_INT));
             }
             if (isset($_GET['etudes'])) {
-                $_SESSION['practicing']['rep'] = array('etudes', filter_var($_GET['etudes'], FILTER_SANITIZE_NUMBER_INT));
+                $_SESSION['practicing']['practiced'] = array('etudes', filter_var($_GET['etudes'], FILTER_SANITIZE_NUMBER_INT));
             }
         }
         if (isset($_GET['go'])) {
