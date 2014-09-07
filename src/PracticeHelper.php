@@ -147,7 +147,7 @@ class PracticeHelper
             }
         }
         if (!$app) {
-            $this->me = PodioContact::me();
+            $this->me = Chiara\PodioContact::me();
             foreach ($this->me->getMyOrganizations() as $org)
             {
                 if ($org->id == 136384) {
