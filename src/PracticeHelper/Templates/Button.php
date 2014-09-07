@@ -19,6 +19,6 @@ class Button extends T
     {
         return '<form action="/PracticeHelper/web/index.php"><input type="hidden" name="' .
                htmlspecialchars($this->name) . '" value="' . htmlspecialchars($this->data) . '">' .
-               '<input type="submit" class="btn ' . $this->look . '"><h1>' . htmlspecialchars($this->title) . '</h1></input></form>';
+               '<button class="btn ' . $this->look . '"><h1>' . htmlspecialchars($this->title) . '</h1></button></form>';
     }
 }
