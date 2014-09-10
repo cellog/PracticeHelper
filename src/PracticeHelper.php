@@ -6,7 +6,7 @@ class PracticeHelper
     protected $key;
     function __construct($nologin = false)
     {
-        Podio::$debug = 1;
+        //Podio::$debug = 1;
         $user = explode('/', $_SERVER['DOCUMENT_ROOT']);
         $user = $user[2];
         $mapfile = __DIR__ . '/pmap.json';
