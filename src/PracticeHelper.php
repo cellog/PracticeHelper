@@ -6,6 +6,7 @@ class PracticeHelper
     protected $key;
     function __construct($nologin = false)
     {
+        Podio::$debug = 1;
         $user = explode('/', $_SERVER['DOCUMENT_ROOT']);
         $user = $user[2];
         $mapfile = __DIR__ . '/pmap.json';
@@ -32,7 +33,7 @@ class PracticeHelper
                 $this->login();
             }
         }
-        if (isset($_SESSION) && !isset($_SESSION['practicing'])) {
+        if (isset($_SESSION) && !isset($_SESSION['practicing']) || isset($_GET['logout'])) {
             $_SESSION['practicing'] = array();
         }
     }
