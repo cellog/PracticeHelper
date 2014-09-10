@@ -213,7 +213,8 @@ class PracticeHelper
             $entry = $this->myPracticeItem();
             $entry->fields['app-reference'] = $piece;
             $entry->fields['how-did-you-practice-it'] = 194369769; // placeholder
-            $entry->fields['date'] = date('Y-m-d');
+            $entry->fields['date']->start = $_SESSION['practicing']['starttime'];
+            $entry->fields['date']->duration = $total;
             $entry->fields['duration'] = $total;
             $entry->save();
             return new PracticeHelper\Templates\BigButton('go', "<h1>Total time: " . round($total/60) . " minutes</h1>" .
