@@ -207,7 +207,7 @@ class PracticeHelper
                     $piece = $this->myTechniqueItem($rep[1]);
                     break;
                 case 'etudes' :
-                    $piece = $this->myEtudeItem($rep[1]);
+                    $piece = $this->myEtudesItem($rep[1]);
                     break;
             }
             $entry = $this->myPracticeItem();
